@@ -1,0 +1,49 @@
+# CMake build directories
+build/
+cmake-build-*/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+Testing/
+
+# Ninja generated files
+.ninja_deps
+.ninja_log
+build.ninja
+rules.ninja
+
+# Compiled outputs
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.dSYM/
+
+# Test/build output
+*.gcda
+*.gcno
+*.gcov
+coverage/
+htmlcov/
+
+# CLion / JetBrains
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Temporary/editor files
+*.swp
+*.swo
+*~
