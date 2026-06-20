@@ -3,33 +3,39 @@ cmake_minimum_required(VERSION 3.24)
 project(bad_zip VERSION 0.1.0 LANGUAGES CXX)
 
 add_library(bad_zip_lib
-    src/argparse.cpp
+        src/argparse.cpp
 )
 
 target_include_directories(bad_zip_lib PUBLIC
-    include
+        include
+)
+
+target_sources(bad_zip_lib PUBLIC
+        FILE_SET HEADERS
+        BASE_DIRS include
+        FILES include/bad_zip/argparse.hpp
 )
 
 target_compile_features(bad_zip_lib PUBLIC cxx_std_20)
 
 target_compile_options(bad_zip_lib PRIVATE
-    -Wall
-    -Wextra
-    -Wpedantic
+        -Wall
+        -Wextra
+        -Wpedantic
 )
 
 add_executable(bad_zip
-    src/main.cpp
+        src/main.cpp
 )
 
 target_compile_options(bad_zip PRIVATE
-    -Wall
-    -Wextra
-    -Wpedantic
+        -Wall
+        -Wextra
+        -Wpedantic
 )
 
 target_link_libraries(bad_zip PRIVATE
-   bad_zip_lib
+        bad_zip_lib
 )
 
 enable_testing()
@@ -37,19 +43,19 @@ enable_testing()
 find_package(Catch2 3 REQUIRED)
 
 add_executable(bad_zip_tests
-    tests/placeholder.cpp
-    tests/placeholder2.cpp
+        tests/placeholder.cpp
+        tests/placeholder2.cpp
 )
 
 target_compile_options(bad_zip_tests PRIVATE
-    -Wall
-    -Wextra
-    -Wpedantic
+        -Wall
+        -Wextra
+        -Wpedantic
 )
 
 target_link_libraries(bad_zip_tests PRIVATE
-    bad_zip_lib
-    Catch2::Catch2WithMain
+        bad_zip_lib
+        Catch2::Catch2WithMain
 )
 
 include(CTest)
