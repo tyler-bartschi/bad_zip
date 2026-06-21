@@ -1,10 +1,10 @@
 # Command Line Arguments for bad_zip (b_zip)
 
 To compress:
-`Usage: ./build/debug/bad_zip [options] [compressed_file_name] [file1] [file2] ... [directory1] ...`
+`Usage: ./build/debug/bad_zip [options] [archive_name] [file1] [file2] ... [directory1] ...`
 
 To decompress:
-`Usage: ./build/debug/bad_zip [options] [compressed_file_name] [target_folder_name]`
+`Usage: ./build/debug/bad_zip [options] [archive_name] [target_directory_name]`
 
 Available options:
 

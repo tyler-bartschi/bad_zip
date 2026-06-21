@@ -12,7 +12,6 @@ or
 cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release
 ```
 
-
 Build command:
 
 ```bash
@@ -24,7 +23,6 @@ or
 ```bash
 cmake --build build/release
 ```
-
 
 Run command:
 
@@ -38,7 +36,6 @@ or
 ./build/release/my_project
 ```
 
-
 Test command:
 
 ```bash
@@ -49,4 +46,16 @@ or
 
 ```bash
 ./build/debug/my_project_tests
+```
+
+Verbose test command:
+
+```bash
+ctest --test-dir build/debug --output-on-failure
+```
+
+or
+
+```bash
+ctest --test-dir build/debug --rerun-failed --output-on-failure
 ```

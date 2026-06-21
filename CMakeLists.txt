@@ -43,14 +43,12 @@ enable_testing()
 find_package(Catch2 3 REQUIRED)
 
 add_executable(bad_zip_tests
-        tests/placeholder.cpp
-        tests/placeholder2.cpp
+        tests/argparse_tests.cpp
 )
 
 target_compile_options(bad_zip_tests PRIVATE
         -Wall
         -Wextra
-        -Wpedantic
 )
 
 target_link_libraries(bad_zip_tests PRIVATE
