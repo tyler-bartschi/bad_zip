@@ -19,3 +19,5 @@ Behavior:
 
 - The compressed file name does not need to include the `.bzip` at the end, since that will automatically be appended
 - There is no recursive flag, since the tool assumes all directories are to be processed recursively
+
+Future note: maybe support the `-cq` for multiple flags

@@ -21,6 +21,7 @@ bool catch_conflicting_mode(const ParsedArgs& result, const char& flag) {
     if (result.mode == EngineMode::Decompress && flag == 'd') {
         return false;
     }
+
     return true;
 }
 
