@@ -2,7 +2,7 @@
 #include <string>
 #include <string_view>
 #include <vector>
-using std::cout, std::endl, std::string, std::string_view, std::vector;
+using std::cout, std::endl, std::string_view, std::string, std::vector;
 
 #include <bad_zip/ArgParse.hpp>
 using bad_zip::EngineMode, bad_zip::ParsedArgs;

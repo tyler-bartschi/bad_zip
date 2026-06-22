@@ -1,10 +1,9 @@
+#include <bad_zip/ArgParse.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <initializer_list>
 #include <vector>
-using std::initializer_list, std::vector;
-
-#include <bad_zip/ArgParse.hpp>
 using bad_zip::parse_args, bad_zip::ParsedArgs, bad_zip::EngineMode;
+using std::initializer_list, std::vector;
 
 namespace {
 ParsedArgs parse(initializer_list<const char*> args) {
@@ -18,14 +17,14 @@ ParsedArgs parse(initializer_list<const char*> args) {
 }
 }  // namespace
 
-TEST_CASE("providing only 1 argument fails", "[argparse]") {
+TEST_CASE("providing only 1 argument fails", "[ArgParse]") {
     const ParsedArgs result = parse({"bad_zip"});
 
     REQUIRE(result.parse_failed);
     REQUIRE(result.failure_message == "Not enough arguments provided");
 }
 
-TEST_CASE("parse_args sets help to true", "[argparse]") {
+TEST_CASE("parse_args sets help to true", "[ArgParse]") {
     SECTION("using -h alone") {
         const ParsedArgs result = parse({"bad_zip", "-h"});
 
@@ -80,7 +79,7 @@ TEST_CASE("parse_args sets help to true", "[argparse]") {
     }
 }
 
-TEST_CASE("parse_args sets options other than help correctly", "[argparse]") {
+TEST_CASE("parse_args sets options other than help correctly", "[ArgParse]") {
     SECTION("using -q or --quiet to set the quiet flag") {
         const ParsedArgs result_one = parse({"bad_zip", "-c", "-q", "test.txt", "test.txt"});
         const ParsedArgs result_two = parse({"bad_zip", "-c", "--quiet", "test.txt", "test.txt"});
@@ -143,7 +142,7 @@ TEST_CASE("parse_args sets options other than help correctly", "[argparse]") {
     }
 }
 
-TEST_CASE("parse_args properly handles failure cases", "[argparse]") {
+TEST_CASE("parse_args properly handles failure cases", "[ArgParse]") {
     SECTION("absence of -c or -d keeps the mode as unknown") {
         const ParsedArgs result = parse({"bad_zip", "text.txt", "text.txt"});
         REQUIRE(result.mode == EngineMode::Unknown);
@@ -182,7 +181,7 @@ TEST_CASE("parse_args properly handles failure cases", "[argparse]") {
     }
 }
 
-TEST_CASE("properly assigns filename/directory arguments", "[argparse]") {
+TEST_CASE("properly assigns filename/directory arguments", "[ArgParse]") {
     SECTION("properly assigns a single filename/directory in compress mode") {
         const ParsedArgs result = parse({"bad_zip", "-c", "compressed.bzip", "test.txt"});
         REQUIRE_FALSE(result.parse_failed);
