@@ -3,7 +3,7 @@
 #include <vector>
 using std::initializer_list, std::vector;
 
-#include <bad_zip/argparse.hpp>
+#include <bad_zip/ArgParse.hpp>
 using bad_zip::parse_args, bad_zip::ParsedArgs, bad_zip::EngineMode;
 
 namespace {

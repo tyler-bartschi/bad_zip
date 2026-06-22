@@ -3,7 +3,7 @@
 #include <string_view>
 using std::cout, std::cerr, std::endl, std::string;
 
-#include <bad_zip/argparse.hpp>
+#include <bad_zip/ArgParse.hpp>
 
 namespace {
 constexpr std::string_view USAGE_MESSAGE =

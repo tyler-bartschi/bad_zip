@@ -4,7 +4,7 @@
 #include <vector>
 using std::cout, std::endl, std::string, std::string_view, std::vector;
 
-#include <bad_zip/argparse.hpp>
+#include <bad_zip/ArgParse.hpp>
 using bad_zip::EngineMode, bad_zip::ParsedArgs;
 
 namespace {

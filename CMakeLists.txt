@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.24)
 
 project(bad_zip VERSION 0.1.0 LANGUAGES CXX)
 
-add_library(bad_zip_lib
-        src/argparse.cpp
+add_library(bad_zip_lib)
+
+target_sources(bad_zip_lib PRIVATE
+        src/ArgParse.cpp
+        src/engine/BZipEngine.cpp
 )
 
 target_include_directories(bad_zip_lib PUBLIC
@@ -13,7 +16,9 @@ target_include_directories(bad_zip_lib PUBLIC
 target_sources(bad_zip_lib PUBLIC
         FILE_SET HEADERS
         BASE_DIRS include
-        FILES include/bad_zip/argparse.hpp
+        FILES
+        include/bad_zip/ArgParse.hpp
+        include/bad_zip/engine/BZipEngine.hpp
 )
 
 target_compile_features(bad_zip_lib PUBLIC cxx_std_20)
@@ -43,7 +48,7 @@ enable_testing()
 find_package(Catch2 3 REQUIRED)
 
 add_executable(bad_zip_tests
-        tests/argparse_tests.cpp
+        tests/ArgParseTests.cpp
 )
 
 target_compile_options(bad_zip_tests PRIVATE
