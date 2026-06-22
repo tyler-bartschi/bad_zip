@@ -16,7 +16,9 @@ void print_help_message() {
     cout << USAGE_MESSAGE << endl;
     cout << "\nOptions:" << endl;
     cout << "'-h': help, prints the help message (this message). Also: '--help'" << endl;
-    cout << "'-q': enable quiet mode, does not print output messages. Also: '--quiet'" << endl;
+    cout << "'-q': enable quiet mode, does not print DEBUG, INFO or WARN output messages. Also: "
+            "'--quiet'"
+         << endl;
     cout << "\n'-c': launch the program in compression mode. Also: '--compress'" << endl;
     cout << "'-d': launch the program in decompression mode. Also: '--decompress'" << endl;
     cout << "\nCompression mode:" << endl;
@@ -61,5 +63,7 @@ int main(const int argc, char* argv[]) {
         handle_parse_failure(parsed_args.failure_message);
         return 1;
     }
+
+    // use a try-catch block here to catch thrown errors, then exit - logging should be handled by the individual units
     return 0;
 }
