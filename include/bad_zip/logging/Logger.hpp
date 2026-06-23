@@ -4,7 +4,7 @@
 #include <string>
 
 namespace bad_zip {
-enum class LogLevel { DEBUG, INFO, WARN, ERROR, FATAL };
+enum class LogLevel { DEBUG, INFO, WARN, ERROR };
 
 class Logger {
 public:

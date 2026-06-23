@@ -39,12 +39,6 @@ TEST_CASE("logger correctly produces the output message", "[Logger]") {
 
         REQUIRE(out.str() == expected_message(LogLevel::ERROR, "not main", "test_message"));
     }
-
-    SECTION("using the FATAL level") {
-        logger.log(LogLevel::FATAL, "another main", "fatal message");
-
-        REQUIRE(out.str() == expected_message(LogLevel::FATAL, "another main", "fatal message"));
-    }
 }
 
 TEST_CASE("quiet mode suppresses DEBUG, INFO, and WARN messages", "[Logger]") {
@@ -74,11 +68,5 @@ TEST_CASE("quiet mode suppresses DEBUG, INFO, and WARN messages", "[Logger]") {
         logger.log(LogLevel::ERROR, "main", "test");
 
         REQUIRE(out.str() == expected_message(LogLevel::ERROR, "main", "test"));
-    }
-
-    SECTION("FATAL is not suppressed") {
-        logger.log(LogLevel::FATAL, "main", "test");
-
-        REQUIRE(out.str() == expected_message(LogLevel::FATAL, "main", "test"));
     }
 }
