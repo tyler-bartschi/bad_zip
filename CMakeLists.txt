@@ -52,6 +52,7 @@ find_package(Catch2 3 REQUIRED)
 add_executable(bad_zip_tests
         tests/ArgParseTests.cpp
         tests/logging/LoggerTests.cpp
+        tests/engine/BZipEngineTests.cpp
 )
 
 target_compile_options(bad_zip_tests PRIVATE

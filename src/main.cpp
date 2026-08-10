@@ -64,6 +64,7 @@ int main(const int argc, char* argv[]) {
         return 1;
     }
 
-    // use a try-catch block here to catch thrown errors, then exit - logging should be handled by the individual units
+    // start a timer so we can print how long it took
+
     return 0;
 }

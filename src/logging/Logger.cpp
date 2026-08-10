@@ -15,7 +15,7 @@ void Logger::log(const LogLevel& level, const std::string& source,
     }
 
     bool use_error = false;
-    if (level == LogLevel::WARN || level == LogLevel::ERROR || level == LogLevel::FATAL) {
+    if (level == LogLevel::WARN || level == LogLevel::ERROR) {
         use_error = true;
     }
 
@@ -35,8 +35,6 @@ std::string Logger::log_level_to_string(const LogLevel& level) {
             return "WARN";
         case LogLevel::ERROR:
             return "ERROR";
-        case LogLevel::FATAL:
-            return "FATAL";
         default:
             return "UNKNOWN";
     }
