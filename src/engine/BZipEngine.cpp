@@ -1,7 +1,5 @@
 #include <algorithm>
 #include <bad_zip/engine/BZipEngine.hpp>
-// ReSharper disable once CppUnusedIncludeDirective
-#include <cctype>
 #include <filesystem>
 #include <functional>
 #include <iostream>

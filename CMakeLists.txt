@@ -8,6 +8,7 @@ target_sources(bad_zip_lib PRIVATE
         src/ArgParse.cpp
         src/engine/BZipEngine.cpp
         src/logging/Logger.cpp
+        src/utils/Heap.cpp
 )
 
 target_include_directories(bad_zip_lib PUBLIC
@@ -21,6 +22,7 @@ target_sources(bad_zip_lib PUBLIC
         include/bad_zip/ArgParse.hpp
         include/bad_zip/engine/BZipEngine.hpp
         include/bad_zip/logging/Logger.hpp
+        include/bad_zip/utils/Heap.hpp
 )
 
 target_compile_features(bad_zip_lib PUBLIC cxx_std_20)
