@@ -29,6 +29,7 @@ public:
     void push(std::unique_ptr<HuffmanNode> node);
     std::unique_ptr<HuffmanNode> pop();
     [[nodiscard]] size_t size() const;
+    [[nodiscard]] bool empty() const;
     void clear();
 
 private:

@@ -77,6 +77,10 @@ std::unique_ptr<HuffmanNode> HuffmanPQ::pop() {
     return nodes_.size();
 }
 
+[[nodiscard]] bool HuffmanPQ::empty() const {
+    return nodes_.empty();
+}
+
 void HuffmanPQ::clear() {
     nodes_.clear();
 }
