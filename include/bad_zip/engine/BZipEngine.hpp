@@ -13,7 +13,7 @@ class BZipEngine {
 public:
     explicit BZipEngine(const ParsedArgs& args, const Logger& logger);
 
-    EngineStatus engine_status_;
+    EngineStatus engine_status;
 
     void validate();
     void execute();

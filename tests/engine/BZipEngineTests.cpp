@@ -72,7 +72,7 @@ TEST_CASE("BZipEngine validation failures properly set the EngineMode to Failed"
         auto engine = BZipEngine(args, logger);
         engine.validate();
 
-        REQUIRE(engine.engine_status_ == EngineStatus::Failed);
+        REQUIRE(engine.engine_status == EngineStatus::Failed);
         REQUIRE(out.str().find("EngineMode is UNKNOWN, cannot proceed"));
     }
 

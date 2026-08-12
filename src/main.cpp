@@ -1,7 +1,11 @@
+#include <chrono>
 #include <iostream>
 #include <string>
 #include <string_view>
-using std::cout, std::cerr, std::endl, std::string;
+
+#include "bad_zip/engine/BZipEngine.hpp"
+#include "bad_zip/logging/Logger.hpp"
+using std::cout, std::cerr, std::endl, std::string, std::ostringstream;
 
 #include <bad_zip/ArgParse.hpp>
 
@@ -64,7 +68,30 @@ int main(const int argc, char* argv[]) {
         return 1;
     }
 
-    // start a timer so we can print how long it took
+    const auto logger = bad_zip::Logger(parsed_args.quiet);
+    auto engine = bad_zip::BZipEngine(parsed_args, logger);
+
+    engine.validate();
+
+    if (engine.engine_status == bad_zip::EngineStatus::Failed) {
+        logger.log(bad_zip::LogLevel::ERROR, "main", "Validation failed");
+        return 2;
+    }
+
+    if (engine.engine_status == bad_zip::EngineStatus::Unvalidated) {
+        logger.log(bad_zip::LogLevel::ERROR, "main", "Engine unvalidated. Cannot proceed");
+        return 2;
+    }
+
+    if (engine.engine_status == bad_zip::EngineStatus::Ready) {
+        auto start = std::chrono::steady_clock::now();
+        engine.execute();
+        auto end = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+        ostringstream out_msg;
+        out_msg << "Engine execution took " << duration.count() << " milliseconds";
+        logger.log(bad_zip::LogLevel::INFO, "main", out_msg.str());
+    }
 
     return 0;
 }

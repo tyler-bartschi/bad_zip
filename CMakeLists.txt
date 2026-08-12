@@ -7,6 +7,10 @@ add_library(bad_zip_lib)
 target_sources(bad_zip_lib PRIVATE
         src/ArgParse.cpp
         src/engine/BZipEngine.cpp
+        src/engine/cores/CompressionCore.cpp
+        src/engine/cores/DecompressionCore.cpp
+        src/errors/CompressionError.cpp
+        src/errors/DecompressionError.cpp
         src/logging/Logger.cpp
         src/utils/Heap.cpp
 )
@@ -21,6 +25,10 @@ target_sources(bad_zip_lib PUBLIC
         FILES
         include/bad_zip/ArgParse.hpp
         include/bad_zip/engine/BZipEngine.hpp
+        include/bad_zip/engine/cores/CompressionCore.hpp
+        include/bad_zip/engine/cores/DecompressionCore.hpp
+        include/bad_zip/errors/CompressionError.hpp
+        include/bad_zip/errors/DecompressionError.hpp
         include/bad_zip/logging/Logger.hpp
         include/bad_zip/utils/Heap.hpp
 )
