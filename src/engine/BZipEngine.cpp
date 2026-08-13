@@ -1,10 +1,16 @@
 #include <algorithm>
 #include <bad_zip/engine/BZipEngine.hpp>
+#include <bad_zip/engine/cores/CompressionCore.hpp>
+#include <bad_zip/engine/cores/DecompressionCore.hpp>
+#include <bad_zip/errors/CompressionError.hpp>
+#include <bad_zip/errors/DecompressionError.hpp>
 #include <filesystem>
 #include <functional>
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
 #include <string>
-using std::string, std::cout, std::endl, std::cin, std::getline, std::tolower;
+using std::string, std::cout, std::endl, std::cin, std::getline, std::tolower, std::ostringstream;
 
 namespace fs = std::filesystem;
 
@@ -14,7 +20,7 @@ constexpr string MODULE_NAME = "BZipEngine";
 
 namespace bad_zip {
 BZipEngine::BZipEngine(const ParsedArgs& args, const Logger& logger)
-    : engine_status_(EngineStatus::Unvalidated),
+    : engine_status(EngineStatus::Unvalidated),
       engine_mode_(args.mode),
       archive_name_(args.archive_name),
       compress_sources_(args.compress_sources),
@@ -27,7 +33,7 @@ void BZipEngine::validate() {
 
     if (engine_mode_ == EngineMode::Unknown) {
         logger_.log(LogLevel::ERROR, MODULE_NAME, "EngineMode is UNKNOWN, cannot proceed");
-        engine_status_ = EngineStatus::Failed;
+        engine_status = EngineStatus::Failed;
         return;
     }
 
@@ -46,15 +52,51 @@ void BZipEngine::validate() {
 
     if (is_ready) {
         logger_.log(LogLevel::INFO, MODULE_NAME, "Validation successful");
-        engine_status_ = EngineStatus::Ready;
+        engine_status = EngineStatus::Ready;
     } else {
         logger_.log(LogLevel::ERROR, MODULE_NAME, "Validation failed");
-        engine_status_ = EngineStatus::Failed;
+        engine_status = EngineStatus::Failed;
     }
 }
 
 void BZipEngine::execute() {
-    // executes the actual thing
+    try {
+        if (engine_mode_ == EngineMode::Compress) {
+            engine_status = EngineStatus::Running;
+
+            // initialize the compression core then execute
+            auto core = CompressionCore(archive_name_, compress_sources_, logger_);
+            core.execute();
+
+            engine_status = EngineStatus::Finished;
+        } else if (engine_mode_ == EngineMode::Decompress) {
+            engine_status = EngineStatus::Running;
+
+            // initialize the decompression core then execute
+            auto core = DecompressionCore(archive_name_, decompress_target_, logger_);
+            core.execute();
+
+            engine_status = EngineStatus::Finished;
+        } else {
+            engine_status = EngineStatus::Failed;
+            logger_.log(LogLevel::ERROR, MODULE_NAME, "Engine mode in unknown state. Canceling...");
+        }
+    } catch (const CompressionError& error) {
+        engine_status = EngineStatus::Failed;
+        ostringstream out;
+        out << "A compression error occurred: " << error.what();
+        logger_.log(LogLevel::ERROR, MODULE_NAME, out.str());
+    } catch (const DecompressionError& error) {
+        engine_status = EngineStatus::Failed;
+        ostringstream out;
+        out << "A decompression error occurred: " << error.what();
+        logger_.log(LogLevel::ERROR, MODULE_NAME, out.str());
+    } catch (const std::exception& error) {
+        engine_status = EngineStatus::Failed;
+        ostringstream out;
+        out << "An error occurred: " << error.what();
+        logger_.log(LogLevel::ERROR, MODULE_NAME, out.str());
+    }
 }
 
 void BZipEngine::validate_compression_state(bool& is_valid) const {

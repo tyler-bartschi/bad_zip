@@ -7,7 +7,7 @@
 #include <vector>
 
 namespace bad_zip {
-enum class EngineStatus { Ready, Failed, Running, Unvalidated };
+enum class EngineStatus { Ready, Failed, Running, Finished, Unvalidated };
 
 class BZipEngine {
 public:

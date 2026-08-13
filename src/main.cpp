@@ -85,13 +85,33 @@ int main(const int argc, char* argv[]) {
 
     if (engine.engine_status == bad_zip::EngineStatus::Ready) {
         auto start = std::chrono::steady_clock::now();
+
         engine.execute();
+
         auto end = std::chrono::steady_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-        ostringstream out_msg;
-        out_msg << "Engine execution took " << duration.count() << " milliseconds";
-        logger.log(bad_zip::LogLevel::INFO, "main", out_msg.str());
+        ostringstream duration_msg;
+        duration_msg << "Engine execution took " << duration.count() << " milliseconds";
+
+        if (engine.engine_status == bad_zip::EngineStatus::Finished) {
+            logger.log(bad_zip::LogLevel::INFO, "main", "Engine execution successful");
+            logger.log(bad_zip::LogLevel::INFO, "main", duration_msg.str());
+            return 0;
+        }
+
+        if (engine.engine_status == bad_zip::EngineStatus::Failed) {
+            logger.log(bad_zip::LogLevel::ERROR, "main", "Engine execution failed.");
+            logger.log(bad_zip::LogLevel::INFO, "main", duration_msg.str());
+            return 2;
+        }
+
+        logger.log(bad_zip::LogLevel::ERROR, "main",
+                   "Engine in unknown final state. Execution failed");
+        return 2;
     }
 
-    return 0;
+    logger.log(bad_zip::LogLevel::ERROR, "main",
+               "Engine status in an unknown state. Cannot proceed");
+
+    return 2;
 }
